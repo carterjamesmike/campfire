@@ -1,23 +1,17 @@
 import React, { useState } from 'react'
 
 const Prompt = () => {
-    const [storyPrompt, setStoryPrompt] = useState('')
-
-    // const handleStoryPrompt = async () => {
-    //     const response = await fetch('/api/generate-story-prompt');
-    //     const data = await response.text();
-    //     console.log(data)
-    //     setStoryPrompt(data);
-    // };
+    const [storyPrompt, setStoryPrompt] = useState('Nothing yet')
 
     const handlePromptGenerator = () => { 
-        fetch('/api/generate-story-prompt')
+        fetch('http://localhost:3001/prompt')
         .then(response => response.json())
-        .then(data => setStoryPrompt(data.text))
+        .then(data => setStoryPrompt(data.storyPrompt))
+        .then(console.log(storyPrompt))
         .catch(err => console.log(err))
     };
 
-
+console.log(storyPrompt)
 
   return (
     <div>

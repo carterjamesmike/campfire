@@ -5,21 +5,19 @@ const path = require('path');
 const { authMiddleware } = require('./utils/auth');
 const db = require('./config/connection');
 const PORT = process.env.PORT || 3001;
+const cors = require('cors');
+
+const openai = require('./openai.js')
 
 //Apollo and GraphQL
 const { ApolloServer } = require('apollo-server-express');
 const { typeDefs, resolvers } = require('./schema');
 
-//GPT
-const { Configuration, OpenAIApi} = require('openai')
-
-//GPT config
-//const openai = new OpenAI(process.env.OPENAI_API_KEY)
-const openai = new OpenAIApi('shDQPJlZAnnbNuiLljmXT3BlbkFJPGSZJDUA9G1juybVwnf6')
 
 //Express Init
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(cors());
 
 //Apollo Server
 const server = new ApolloServer({
@@ -38,35 +36,12 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 
-//GPT route
-app.get('/api/generate-story-prompt', async (req, res) => {
-    try {
-        const completion = await openai.createCompletion({
-            model: 'text-davinci-003',
-            prompt: 'Generate a short story prompt',
-            max_tokens: 50,
-            n: 1,
-            stop: ['\n']
-        });
-        console.log(completion.data.choices[0].text);
-        res.json({ text: completion.data.choices[0].text });
-    } catch (err) {
-        console.error(err);
-        res.status(500).json(err);
-    }
 
-    // const prompt = await openai.completions.create({
-    //     model: 'text-davinci-002',
-    //     prompt: 'Generate a short story prompt',
-    //     max_tokens: 50,
-    //     n: 1,
-    //     stop: ['\n']
-    // });
-
-    // const storyPrompt = prompt.choices[0].text.trim();
-
-    // res.send(storyPrompt);
+app.get('/prompt', async (req, res) => {
+    const storyPrompt = await openai.generatePrompt();
+    res.json({ storyPrompt });
 });
+
 
 //Apollo Server
 const startApolloServer = async (typeDefs, resolvers) => {
