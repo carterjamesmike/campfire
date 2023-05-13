@@ -25,5 +25,8 @@
   "bugs": {
     "url": "https://github.com/carterjamesmike/campfire/issues"
   },
-  "homepage": "https://github.com/carterjamesmike/campfire#readme"
+  "homepage": "https://github.com/carterjamesmike/campfire#readme",
+  "dependencies": {
+    "react-icons": "^4.8.0"
+  }
 }

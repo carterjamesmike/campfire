@@ -11,6 +11,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 //Components and Pages
 import Prompt from './pages/Prompt'
+import Home from './pages/Home'
+import Login from './pages/Login'
 
 //GraphQL endpoint
 const httpLink = createHttpLink({
@@ -46,7 +48,8 @@ function App() {
       <Router>
         <div>
           <Routes>
-            <Route path="/" element={<Prompt />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
           </Routes>
         </div>
       </Router>

@@ -14,13 +14,13 @@ const Prompt = () => {
 console.log(storyPrompt)
 
   return (
-    <div>
+    <>
         <h1>Prompt</h1>
         <button 
         className='border-2 border-black'
         onClick={handlePromptGenerator}>Generate Story Prompt</button>
         <p>{storyPrompt}</p>
-    </div>
+    </>
   )
 }
 

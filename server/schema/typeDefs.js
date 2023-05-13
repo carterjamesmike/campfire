@@ -52,7 +52,7 @@ const typeDefs = gql`
         login(email: String!, password: String!): Auth
         addCampfire(campfireName: String!): Campfire
         addStory(storyName: String!, totalEntries: Int!, campfireName: String!): Story
-        addStoryText(storyName: String!, text: String!): Story
+        addStoryText(text: String!): Story
     }
 
 
